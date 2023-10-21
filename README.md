@@ -1,4 +1,4 @@
-1- demo for the prohect : 
+1- demo for the project : 
 https://drive.google.com/drive/folders/1Mn7lg70XmoIOGZOLgtLWL3zc6-UyhgBr?usp=sharing
 
 2- The project involves building a comprehensive Api worker management system, akin to a freelance website. This system caters to both workers and clients, with administrators overseeing the entire operation. Key features include:
