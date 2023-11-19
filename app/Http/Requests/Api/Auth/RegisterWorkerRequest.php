@@ -15,7 +15,7 @@ class RegisterWorkerRequest extends FormRequest
             'email' => 'required|email|max:100|unique:workers',
             'password' => 'required|string|min:6',
             'phone' => 'required|string|max:20',
-            'location' => 'required|string|min:6',
+            'location' => 'required|string|min:5',
             'image' => 'required|image|mimes:jpg,jpeg,png',
         ];
     }

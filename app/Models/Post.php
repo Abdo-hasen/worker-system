@@ -13,6 +13,7 @@ class Post extends Model
     [
         "worker_id",
         "price",
+        "admin_percent",
         "content",
         "status",
         "rejected_reason",

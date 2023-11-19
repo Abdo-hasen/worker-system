@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\AdminDashboard\{AdminNotificationController, PostSt
 use App\Http\Controllers\Api\Auth\{AdminController,ClientController,WorkerController};
 use App\Http\Controllers\Api\ClientOrderController;
 use App\Http\Controllers\Api\FileController;
+use App\Http\Controllers\Api\Payment\PaypalController;
 use App\Http\Controllers\Api\Worker\WorkerProfileController;
 use App\Http\Controllers\Api\WorkerReviewController;
 
@@ -27,9 +28,9 @@ Route::group([
         'prefix' => 'admin',
         "controller"=> AdminController::class 
     ], function () {
-        Route::post('/login', 'login');
+        Route::post('/login', 'login');//b
         Route::post('/register', 'register');
-        Route::get('/user_profile', 'userProfile'); 
+        Route::get('/user_profile', 'userProfile');  
         Route::post('/refresh', 'refresh');
         Route::post('/logout', 'logout');
     });
@@ -76,9 +77,9 @@ Route::prefix("admin")
         Route::get("all","index");
         Route::get("unread","unread");
         Route::post("mark/{id}","mark");
-        Route::post("markAll","markAll");
+        Route::post("mark-all","markAll");
         Route::delete("delete/{id}","destroy");
-        Route::delete("deleteAll","destroyAll");
+        Route::delete("delete-all","destroyAll");
     });
 
     Route::prefix("post")
@@ -98,12 +99,21 @@ Route::prefix("client")
         Route::post("request-order", "addOrder");
         Route::get('approved-orders', 'approvedOrders');
     });
-
     
+    Route::prefix("paypal")
+    ->controller(PaypalController::class)
+    ->as("paypal.")
+    ->group(function () {
+        Route::get('payment/{serviceId}', 'payment')->name('payment');
+        Route::get('success/{serviceId}', 'success')->name('success');
+        Route::get('cancel', 'cancel')->name('cancel');
+    });
+
 });
 
+
 //client-review
-Route::post("review-post",[WorkerReviewController::class,"reviewPost"])->middleware("auth:client");
+Route::post("client/review-post",[WorkerReviewController::class,"reviewPost"])->middleware("auth:client");
 
 //worker
 Route::prefix("worker")->middleware("auth:worker")->group(function(){
@@ -127,8 +137,4 @@ Route::fallback(function(){
         "data" => "null"
     ]);
 });
-
-
-
-
 

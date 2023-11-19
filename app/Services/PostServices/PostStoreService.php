@@ -22,17 +22,24 @@ class PostStoreService
         return $priceAfterDiscount;
     }
 
+
+       public function discount($price){
+        $discount = $price * 0.05 ;
+        return $discount;
+    }
+
     public function storePost($request)
     {
-        $post = Post::create([
+        $post = Post::create([//b
             "content" => $request->content,
             "price" => $this->adminPercent($request->price),
+            "admin_percent" => $this->discount($request->price), 
             "worker_id" => auth("worker")->id(),
         ]);
 
         return $post;
     }
-
+    
     public function storePostImages($request, $postID)
     {
         $image_name = $this->uploadImage(PostImage::PATH, $request->images);
